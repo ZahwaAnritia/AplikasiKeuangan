@@ -90,13 +90,15 @@ fun LoginScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF8FAFB))) {
-        // Gradient Header
-        Box(
-            modifier = Modifier.fillMaxWidth().height(340.dp)
-                .background(Brush.verticalGradient(listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))))
-        )
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))
+                )
+            )
+    ) {
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -140,7 +142,12 @@ fun LoginScreen(
                         },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color(0xFF5DC8E0),  unfocusedLabelColor = Color(0xFF1A4A58)),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color(0xFF0D3B4E),
+                            unfocusedBorderColor = Color.Gray,
+                            focusedLabelColor = Color(0xFF0D3B4E),
+                            cursorColor = Color(0xFF0D3B4E)
+                        ),
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -157,11 +164,9 @@ fun LoginScreen(
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF0D3B4E),
-                            unfocusedBorderColor = Color(0xFF5DC8E0),
-                            unfocusedLabelColor = Color(0xFF1A4A58),
+                            unfocusedBorderColor = Color.Gray,
                             focusedLabelColor = Color(0xFF0D3B4E),
-                            unfocusedLeadingIconColor = Color(0xFF0D6E8A),
-                            focusedLeadingIconColor = Color(0xFF0D3B4E)
+                            cursorColor = Color(0xFF0D3B4E)
                         ),
                         trailingIcon = {
                             val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
@@ -202,8 +207,8 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
             Row(modifier = Modifier.padding(bottom = 48.dp)) {
-                Text("Belum punya akun? ", color = Color.Gray)
-                Text("Daftar Akun", color = Color(0xFF0D6E8A), fontWeight = FontWeight.Black, modifier = Modifier.clickable { onNavigateToRegister() })
+                Text("Belum punya akun? ", color = Color(0xFFA8D8E8)) // Warna biru terang
+                Text("Daftar Akun", color = Color(0xFFE8F8FC), fontWeight = FontWeight.Black, modifier = Modifier.clickable { onNavigateToRegister() }) // Warna putih kebiruan
             }
         }
 
@@ -215,15 +220,28 @@ fun LoginScreen(
             }) {
                 Surface(modifier = Modifier.fillMaxWidth(0.75f).wrapContentHeight(), shape = RoundedCornerShape(28.dp), color = Color.White) {
                     Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(modifier = Modifier.size(64.dp).background(Color(0xFFE8F5E9), CircleShape), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.CheckCircle, null, tint = Color(0xFF4CAF50), modifier = Modifier.size(36.dp))
+                        Box(
+                            modifier = Modifier.size(64.dp).background(Color(0xFF0D3B4E), CircleShape), // Jadi biru gelap
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                null,
+                                tint = Color.White, // Jadi putih agar kontras
+                                modifier = Modifier.size(36.dp)
+                            )
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Halo!", fontSize = 20.sp, fontWeight = FontWeight.Black)
-                        Text("Login berhasil.", color = Color(0xFF4A6B75), fontSize = 14.sp)
+                        Text("Login berhasil.", color = Color(0xFF0D3B4E), fontSize = 14.sp)
                         Spacer(modifier = Modifier.height(24.dp))
-                        Button(onClick = { showSuccessDialog = false; onLoginSuccess() }, modifier = Modifier.fillMaxWidth().height(46.dp), colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary), shape = RoundedCornerShape(12.dp)) {
-                            Text("Lanjut", fontWeight = FontWeight.Bold)
+                        Button(
+                            onClick = { showSuccessDialog = false; onLoginSuccess() },
+                            modifier = Modifier.fillMaxWidth().height(46.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)), // Warna diubah ke biru gelap
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text("Lanjut", fontWeight = FontWeight.Bold, color = Color.White) // Tambahkan warna putih agar kontras
                         }
                     }
                 }
@@ -236,14 +254,24 @@ fun LoginScreen(
                 Surface(modifier = Modifier.fillMaxWidth(0.75f).wrapContentHeight(), shape = RoundedCornerShape(28.dp), color = Color.White) {
                     Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                         Box(modifier = Modifier.size(64.dp).background(Color(0xFFFFEBEE), CircleShape), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.Warning, null, tint = Color(0xFFFF5252), modifier = Modifier.size(36.dp))
+                            Icon(Icons.Default.Warning, null, tint = Color(0xFFB3261E), modifier = Modifier.size(36.dp))
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Gagal", fontSize = 20.sp, fontWeight = FontWeight.Black)
-                        Text(errorMessage, color = Color.Gray, fontSize = 14.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                        Text(
+                            errorMessage,
+                            color = Color.DarkGray,
+                            fontSize = 14.sp,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
                         Spacer(modifier = Modifier.height(24.dp))
-                        Button(onClick = { showErrorDialog = false }, modifier = Modifier.fillMaxWidth().height(46.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5252)), shape = RoundedCornerShape(12.dp)) {
-                            Text("Coba Lagi", fontWeight = FontWeight.Bold)
+                        Button(
+                            onClick = { showErrorDialog = false },
+                            modifier = Modifier.fillMaxWidth().height(46.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB3261E)), // UBAH WARNA INI
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text("Coba Lagi", fontWeight = FontWeight.Bold, color = Color.White)
                         }
                     }
                 }

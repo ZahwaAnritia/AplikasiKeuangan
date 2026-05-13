@@ -93,19 +93,15 @@ fun RegisterScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF8FAFB))) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(280.dp)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))
-                    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))
                 )
-        )
-
+            )
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -183,8 +179,10 @@ fun RegisterScreen(
                         singleLine = true,
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = CyanPrimary,
-                            unfocusedBorderColor = Color(0xFFEEEEEE)
+                            focusedBorderColor = Color(0xFF0D3B4E), // Warna garis luar saat kolom diklik
+                            unfocusedBorderColor = Color.Gray, // Warna garis luar saat tidak diklik
+                            focusedLabelColor = Color(0xFF0D3B4E), // Warna teks label (misal: "Email") saat diklik
+                            cursorColor = Color(0xFF0D3B4E) // Warna garis ketik yang kedap-kedip
                         )
                     )
 
@@ -203,8 +201,10 @@ fun RegisterScreen(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = CyanPrimary,
-                            unfocusedBorderColor = Color(0xFFEEEEEE)
+                            focusedBorderColor = Color(0xFF0D3B4E), // Warna garis luar saat kolom diklik
+                            unfocusedBorderColor = Color.Gray, // Warna garis luar saat tidak diklik
+                            focusedLabelColor = Color(0xFF0D3B4E), // Warna teks label (misal: "Email") saat diklik
+                            cursorColor = Color(0xFF0D3B4E) // Warna garis ketik yang kedap-kedip
                         )
                     )
 
@@ -215,6 +215,7 @@ fun RegisterScreen(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text("Password") },
+                        isError = password.isNotEmpty() && password.length < 6,
                         leadingIcon = {
                             Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF0D3B4E),)
                         },
@@ -224,8 +225,10 @@ fun RegisterScreen(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = CyanPrimary,
-                            unfocusedBorderColor = Color(0xFFEEEEEE)
+                            focusedBorderColor = Color(0xFF0D3B4E), // Warna garis luar saat kolom diklik
+                            unfocusedBorderColor = Color.Gray, // Warna garis luar saat tidak diklik
+                            focusedLabelColor = Color(0xFF0D3B4E), // Warna teks label (misal: "Email") saat diklik
+                            cursorColor = Color(0xFF0D3B4E) // Warna garis ketik yang kedap-kedip
                         ),
                         trailingIcon = {
                             val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
@@ -235,7 +238,7 @@ fun RegisterScreen(
                         },
                         supportingText = {
                             if (password.isNotEmpty() && password.length < 6) {
-                                Text("Minimal 6 karakter", color = Color.Red, fontSize = 11.sp)
+                                Text("Minimal 6 karakter", color = Color(0xFFB3261E), fontSize = 11.sp)
                             }
                         }
                     )
@@ -247,6 +250,7 @@ fun RegisterScreen(
                         value = confirmPassword,
                         onValueChange = { confirmPassword = it },
                         label = { Text("Konfirmasi Password") },
+                        isError = confirmPassword.isNotEmpty() && password != confirmPassword,
                         leadingIcon = {
                             Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF0D3B4E),)
                         },
@@ -256,8 +260,10 @@ fun RegisterScreen(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = CyanPrimary,
-                            unfocusedBorderColor = Color(0xFFEEEEEE)
+                            focusedBorderColor = Color(0xFF0D3B4E), // Warna garis luar saat kolom diklik
+                            unfocusedBorderColor = Color.Gray, // Warna garis luar saat tidak diklik
+                            focusedLabelColor = Color(0xFF0D3B4E), // Warna teks label (misal: "Email") saat diklik
+                            cursorColor = Color(0xFF0D3B4E) // Warna garis ketik yang kedap-kedip
                         ),
                         trailingIcon = {
                             val image = if (confirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
@@ -267,7 +273,7 @@ fun RegisterScreen(
                         },
                         supportingText = {
                             if (confirmPassword.isNotEmpty() && password != confirmPassword) {
-                                Text("Password tidak cocok", color = Color.Red, fontSize = 11.sp)
+                                Text("Password tidak cocok", color = Color(0xFFB3261E), fontSize = 11.sp)
                             }
                         }
                     )
@@ -300,7 +306,7 @@ fun RegisterScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(54.dp)
-                            .shadow(8.dp, RoundedCornerShape(16.dp), spotColor = CyanPrimary),
+                            .shadow(8.dp, RoundedCornerShape(16.dp)),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                         shape = RoundedCornerShape(16.dp),
                         enabled = registerState !is LoginState.Loading
@@ -321,10 +327,10 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 40.dp)
             ) {
-                Text("Sudah punya akun? ", color = Color(0xFF4A6B75),)
+                Text("Sudah punya akun? ", color = Color(0xFFA8D8E8),)
                 Text(
                     text = "Masuk di sini",
-                    color = Color(0xFF0D6E8A),
+                    color = Color(0xFFE8F8FC),
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onNavigateToLogin() }
                 )
@@ -342,20 +348,29 @@ fun RegisterScreen(
                     color = Color.White
                 ) {
                     Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(modifier = Modifier.size(72.dp).background(Color(0xFFE0F7FA), CircleShape), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.CheckCircle, null, tint = Color(0xFF0D3B4E), modifier = Modifier.size(44.dp))
+                        Box(
+                            modifier = Modifier.size(72.dp).background(Color(0xFF0D3B4E), CircleShape), // Lingkaran jadi biru gelap
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = Color.White, // Ikon centang jadi putih
+                                modifier = Modifier.size(44.dp)
+                            )
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         Text("Berhasil!", fontSize = 20.sp, fontWeight = FontWeight.Black)
-                        Text("Akun kamu sudah aktif.", fontSize = 14.sp, color = Color.Gray)
+                        Text("Akun kamu sudah aktif.", fontSize = 14.sp, color = Color(0xFF0D3B4E))
                         Spacer(modifier = Modifier.height(28.dp))
                         Button(
                             onClick = {
                                 showSuccessDialog = false
-                                onNavigateToLogin() // Pindah ke Login
+                                onNavigateToLogin()
                             },
                             modifier = Modifier.fillMaxWidth().height(50.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                            // Ganti CyanPrimary menjadi Color(0xFF0D3B4E)
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                             shape = RoundedCornerShape(14.dp)
                         ) {
                             Text("Masuk Sekarang", fontWeight = FontWeight.Bold, color = Color.White)
@@ -381,19 +396,19 @@ fun RegisterScreen(
                             modifier = Modifier.size(60.dp).background(Color(0xFFFFEBEE), CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(Icons.Default.Warning, null, tint = Color(0xFF0D3B4E), modifier = Modifier.size(32.dp))
+                            Icon(Icons.Default.Warning, null, tint = Color(0xFFB3261E), modifier = Modifier.size(32.dp))
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Oops!", fontSize = 18.sp, fontWeight = FontWeight.Black)
-                        Text(errorMessage, fontSize = 14.sp, color = Color.Gray, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                        Text(errorMessage, fontSize = 14.sp, color = Color.DarkGray, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         Spacer(modifier = Modifier.height(24.dp))
                         Button(
                             onClick = { showErrorDialog = false },
                             modifier = Modifier.fillMaxWidth().height(46.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5252)),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB3261E)), // UBAH WARNA INI
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text("Perbaiki", fontWeight = FontWeight.Bold)
+                            Text("Perbaiki", fontWeight = FontWeight.Bold, color = Color.White)
                         }
                     }
                 }
