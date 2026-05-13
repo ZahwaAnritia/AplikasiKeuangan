@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.TrendingDown
 import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -84,7 +85,7 @@ fun DashboardScreen(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color(0xFF00ACC1).toArgb()
+            window.statusBarColor = Color(0xFF0D3B4E).toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
@@ -97,7 +98,7 @@ fun DashboardScreen(
                 .height(240.dp)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFF00BCD4), Color(0xFF0097A7))
+                        colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A)) // Gradasi biru gelap
                     )
                 )
         )
@@ -146,15 +147,17 @@ fun DashboardScreen(
                 SmartWarning(
                     title = "Terkena Catch-up Utang!",
                     subtitle = "Limit dikurangi untuk menutupi minus kemarin.",
-                    color = Color(0xFFFF5252),
-                    bgColor = Color(0xFFFFEBEE)
+                    color = Color(0xFFB3261E),
+                    bgColor = Color(0xFFFFEBEE),
+                    icon = Icons.Default.Error // IKON ERROR UNTUK OVER BUDGET
                 )
             } else if (isBorosHariIni) {
                 SmartWarning(
                     title = "Waduh, Boros Hari Ini!",
                     subtitle = "Kurangi jajan ya biar budget aman sampai akhir bulan!",
-                    color = Color(0xFFFFA000),
-                    bgColor = Color(0xFFFFF3E0)
+                    color = Color(0xFFBF360C),
+                    bgColor = Color(0xFFFFF3E0),
+                    icon = Icons.Default.Warning // IKON WARNING UNTUK BOROS
                 )
             }
 
@@ -162,7 +165,7 @@ fun DashboardScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .shadow(elevation = 15.dp, shape = RoundedCornerShape(32.dp), ambientColor = CyanPrimary, spotColor = CyanPrimary),
+                    .shadow(elevation = 15.dp, shape = RoundedCornerShape(32.dp), ambientColor = Color(0xFF0D3B4E), spotColor = Color(0xFF0D3B4E)), // Ubah warna shadow di sini
                 shape = RoundedCornerShape(32.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
@@ -176,7 +179,7 @@ fun DashboardScreen(
 
                         val isKritis = jatahHarianPintar < 20000 && jatahHarianPintar > 0
                         Surface(
-                            color = if (isKritis) Color(0xFFFFEBEE) else Color(0xFFE0F7FA),
+                            color = if (isKritis) Color(0xFFB3261E) else Color(0xFF0D3B4E),
                             shape = RoundedCornerShape(10.dp)
                         ) {
                             Text(
@@ -195,7 +198,7 @@ fun DashboardScreen(
                         text = formatRupiah(sisaBudget),
                         fontSize = 36.sp,
                         fontWeight = FontWeight.Black,
-                        color = if (sisaBudget <= 0) Color(0xFFFF5252) else Color(0xFF263238),
+                        color = if (sisaBudget <= 0) Color(0xFFB3261E) else Color(0xFF263238),
                         letterSpacing = (-1).sp
                     )
 
@@ -211,7 +214,12 @@ fun DashboardScreen(
                     // Progress Section
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text("Progres Pemakaian", fontSize = 12.sp, color = Color.Gray, fontWeight = FontWeight.Bold)
-                        Text("${(targetProgress * 100).toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Black, color = CyanPrimary)
+                        Text(
+                            text = if (isOverBudget) "🚨 Over Limit!" else "${(targetProgress * 100).toInt()}%",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Black,
+                            color = if (isOverBudget) Color(0xFFB3261E) else Color(0xFF0D3B4E),
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -222,7 +230,7 @@ fun DashboardScreen(
                             .fillMaxWidth()
                             .height(12.dp)
                             .clip(RoundedCornerShape(12.dp)),
-                        color = if (isOverBudget) Color(0xFFFF5252) else CyanPrimary,
+                        color = if (isOverBudget) Color(0xFFB3261E) else Color(0xFF0D3B4E),
                         trackColor = Color(0xFFF1F4F7),
                     )
                 }
@@ -234,16 +242,16 @@ fun DashboardScreen(
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 SmallStatCard(
                     label = "Hari Ini",
-                    value = formatRupiah(expenseHariIni),
+                    value = "- ${formatRupiah(expenseHariIni)}",
                     icon = Icons.Default.TrendingDown,
-                    color = Color(0xFFFF5252),
+                    color = Color(0xFFB3261E),
                     modifier = Modifier.weight(1f)
                 )
                 SmallStatCard(
                     label = "Total Masuk",
-                    value = formatRupiah(totalIncome),
+                    value = "+ ${formatRupiah(totalIncome)}",
                     icon = Icons.Default.TrendingUp,
-                    color = Color(0xFF4CAF50),
+                    color = Color(0xFF2E7D32),
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -335,13 +343,13 @@ fun DashboardScreen(
                         Box(
                             modifier = Modifier
                                 .size(64.dp)
-                                .background(CyanPrimary.copy(alpha = 0.1f), CircleShape),
+                                .background(Color(0xFF0D3B4E).copy(alpha = 0.1f), CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Notifications,
                                 contentDescription = null,
-                                tint = CyanPrimary,
+                                tint = Color(0xFF0D3B4E),
                                 modifier = Modifier.size(32.dp)
                             )
                         }
@@ -372,7 +380,7 @@ fun DashboardScreen(
                         Button(
                             onClick = { showNotifInfo = false },
                             modifier = Modifier.fillMaxWidth().height(48.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                             shape = RoundedCornerShape(12.dp)
                         ) {
                             Text("Oke", fontWeight = FontWeight.Bold, color = Color.White)
@@ -385,7 +393,7 @@ fun DashboardScreen(
 }
 
 @Composable
-fun SmartWarning(title: String, subtitle: String, color: Color, bgColor: Color) {
+fun SmartWarning(title: String, subtitle: String, color: Color, bgColor: Color, icon: ImageVector) { // TAMBAH PARAMETER icon
     Surface(
         modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp),
         color = bgColor,
@@ -393,7 +401,7 @@ fun SmartWarning(title: String, subtitle: String, color: Color, bgColor: Color) 
         border = BorderStroke(1.dp, color.copy(alpha = 0.2f))
     ) {
         Row(modifier = Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Default.Warning, contentDescription = null, tint = color, modifier = Modifier.size(20.dp))
+            Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(20.dp)) // GUNAKAN icon DARI PARAMETER
             Spacer(modifier = Modifier.width(12.dp))
             Column {
                 Text(title, color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
