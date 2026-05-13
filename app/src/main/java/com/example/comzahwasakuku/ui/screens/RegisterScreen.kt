@@ -13,6 +13,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.Warning
@@ -70,7 +73,7 @@ fun RegisterScreen(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color(0xFF00ACC1).toArgb()
+            window.statusBarColor = Color(0xFF0D3B4E).toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
@@ -98,7 +101,7 @@ fun RegisterScreen(
                 .height(280.dp)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFF00BCD4), Color(0xFF0097A7))
+                        colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))
                     )
                 )
         )
@@ -123,7 +126,7 @@ fun RegisterScreen(
                 Icon(
                     imageVector = Icons.Default.AccountBalanceWallet,
                     contentDescription = null,
-                    tint = CyanPrimary,
+                    tint = Color(0xFF0D3B4E),
                     modifier = Modifier.size(40.dp)
                 )
             }
@@ -134,13 +137,13 @@ fun RegisterScreen(
                 text = "Buat Akun",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White,
+                color = Color(0xFFE8F8FC),
                 letterSpacing = 1.sp
             )
             Text(
                 text = "Mulai kelola uang sakumu sekarang!",
                 fontSize = 13.sp,
-                color = Color.White.copy(alpha = 0.8f),
+                color = Color(0xFFA8D8E8),
                 fontWeight = FontWeight.Medium
             )
 
@@ -173,6 +176,9 @@ fun RegisterScreen(
                         value = fullName,
                         onValueChange = { fullName = it },
                         label = { Text("Nama Lengkap") },
+                        leadingIcon = {
+                            Icon(Icons.Default.Person, contentDescription = null, tint = Color(0xFF0D3B4E),)
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         shape = RoundedCornerShape(16.dp),
@@ -189,6 +195,9 @@ fun RegisterScreen(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text("Email") },
+                        leadingIcon = {
+                            Icon(Icons.Default.Email, contentDescription = null, tint = Color(0xFF0D3B4E),)
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -206,6 +215,9 @@ fun RegisterScreen(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text("Password") },
+                        leadingIcon = {
+                            Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF0D3B4E),)
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -235,6 +247,9 @@ fun RegisterScreen(
                         value = confirmPassword,
                         onValueChange = { confirmPassword = it },
                         label = { Text("Konfirmasi Password") },
+                        leadingIcon = {
+                            Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF0D3B4E),)
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -286,7 +301,7 @@ fun RegisterScreen(
                             .fillMaxWidth()
                             .height(54.dp)
                             .shadow(8.dp, RoundedCornerShape(16.dp), spotColor = CyanPrimary),
-                        colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                         shape = RoundedCornerShape(16.dp),
                         enabled = registerState !is LoginState.Loading
                     ) {
@@ -306,10 +321,10 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 40.dp)
             ) {
-                Text("Sudah punya akun? ", color = Color.Gray)
+                Text("Sudah punya akun? ", color = Color(0xFF4A6B75),)
                 Text(
                     text = "Masuk di sini",
-                    color = CyanPrimary,
+                    color = Color(0xFF0D6E8A),
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onNavigateToLogin() }
                 )
@@ -328,7 +343,7 @@ fun RegisterScreen(
                 ) {
                     Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                         Box(modifier = Modifier.size(72.dp).background(Color(0xFFE0F7FA), CircleShape), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.CheckCircle, null, tint = CyanPrimary, modifier = Modifier.size(44.dp))
+                            Icon(Icons.Default.CheckCircle, null, tint = Color(0xFF0D3B4E), modifier = Modifier.size(44.dp))
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         Text("Berhasil!", fontSize = 20.sp, fontWeight = FontWeight.Black)
@@ -366,7 +381,7 @@ fun RegisterScreen(
                             modifier = Modifier.size(60.dp).background(Color(0xFFFFEBEE), CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(Icons.Default.Warning, null, tint = Color(0xFFFF5252), modifier = Modifier.size(32.dp))
+                            Icon(Icons.Default.Warning, null, tint = Color(0xFF0D3B4E), modifier = Modifier.size(32.dp))
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Oops!", fontSize = 18.sp, fontWeight = FontWeight.Black)

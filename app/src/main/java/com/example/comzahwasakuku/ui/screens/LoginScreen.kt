@@ -13,6 +13,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.Warning
@@ -68,7 +70,7 @@ fun LoginScreen(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color(0xFF00ACC1).toArgb()
+            window.statusBarColor = Color(0xFF0D3B4E).toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
@@ -92,7 +94,7 @@ fun LoginScreen(
         // Gradient Header
         Box(
             modifier = Modifier.fillMaxWidth().height(340.dp)
-                .background(Brush.verticalGradient(listOf(Color(0xFF00BCD4), Color(0xFF0097A7))))
+                .background(Brush.verticalGradient(listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))))
         )
 
         Column(
@@ -106,12 +108,12 @@ fun LoginScreen(
                 modifier = Modifier.size(100.dp).shadow(30.dp, CircleShape).clip(CircleShape).background(Color.White),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.AccountBalanceWallet, null, tint = Color(0xFF0097A7), modifier = Modifier.size(52.dp))
+                Icon(Icons.Default.AccountBalanceWallet, null, tint = Color(0xFF0D3B4E), modifier = Modifier.size(52.dp))
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            Text("SAKUKU", fontSize = 36.sp, fontWeight = FontWeight.Black, color = Color.White, letterSpacing = 4.sp)
-            Text("Asisten Finansial Pintar Mahasiswa", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f))
+            Text("SAKUKU", fontSize = 36.sp, fontWeight = FontWeight.Black, color = Color(0xFFE8F8FC), letterSpacing = 4.sp)
+            Text("Asisten Finansial Pintar Mahasiswa", fontSize = 14.sp, color = Color(0xFFA8D8E8))
 
             Spacer(modifier = Modifier.height(36.dp))
 
@@ -132,9 +134,13 @@ fun LoginScreen(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text("Email") },
+
+                        leadingIcon = {
+                            Icon(Icons.Default.Email, contentDescription = null, tint = Color(0xFF0D3B4E))
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = CyanPrimary, focusedLabelColor = CyanPrimary)
+                        colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color(0xFF5DC8E0),  unfocusedLabelColor = Color(0xFF1A4A58)),
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -143,10 +149,20 @@ fun LoginScreen(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text("Password") },
+                        leadingIcon = {
+                            Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF0D3B4E))
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         shape = RoundedCornerShape(16.dp),
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = CyanPrimary, focusedLabelColor = CyanPrimary),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color(0xFF0D3B4E),
+                            unfocusedBorderColor = Color(0xFF5DC8E0),
+                            unfocusedLabelColor = Color(0xFF1A4A58),
+                            focusedLabelColor = Color(0xFF0D3B4E),
+                            unfocusedLeadingIconColor = Color(0xFF0D6E8A),
+                            focusedLeadingIconColor = Color(0xFF0D3B4E)
+                        ),
                         trailingIcon = {
                             val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -171,7 +187,7 @@ fun LoginScreen(
                             }
                         },
                         modifier = Modifier.fillMaxWidth().height(56.dp).shadow(12.dp, RoundedCornerShape(16.dp)),
-                        colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                         shape = RoundedCornerShape(16.dp),
                         enabled = loginState !is LoginState.Loading
                     ) {
@@ -187,7 +203,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(32.dp))
             Row(modifier = Modifier.padding(bottom = 48.dp)) {
                 Text("Belum punya akun? ", color = Color.Gray)
-                Text("Daftar Akun", color = CyanPrimary, fontWeight = FontWeight.Black, modifier = Modifier.clickable { onNavigateToRegister() })
+                Text("Daftar Akun", color = Color(0xFF0D6E8A), fontWeight = FontWeight.Black, modifier = Modifier.clickable { onNavigateToRegister() })
             }
         }
 
@@ -204,7 +220,7 @@ fun LoginScreen(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Halo!", fontSize = 20.sp, fontWeight = FontWeight.Black)
-                        Text("Login berhasil.", color = Color.Gray, fontSize = 14.sp)
+                        Text("Login berhasil.", color = Color(0xFF4A6B75), fontSize = 14.sp)
                         Spacer(modifier = Modifier.height(24.dp))
                         Button(onClick = { showSuccessDialog = false; onLoginSuccess() }, modifier = Modifier.fillMaxWidth().height(46.dp), colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary), shape = RoundedCornerShape(12.dp)) {
                             Text("Lanjut", fontWeight = FontWeight.Bold)

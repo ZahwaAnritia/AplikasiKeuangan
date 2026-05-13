@@ -27,7 +27,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
 
 
     LaunchedEffect(true) {
-        delay(2000)
+        delay(10000)
         onTimeout()
     }
 
@@ -37,7 +37,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
             .background(
 
                 brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFF00BCD4), Color(0xFF0097A7))
+                    colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))
                 )
             ),
         contentAlignment = Alignment.Center
@@ -50,7 +50,6 @@ fun SplashScreen(onTimeout: () -> Unit) {
             Box(
                 modifier = Modifier
                     .size(140.dp)
-                    .shadow(20.dp, CircleShape) // Tambah bayangan agar logo "pop out"
                     .clip(CircleShape)
                     .background(Color.White),
                 contentAlignment = Alignment.Center
@@ -59,7 +58,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
                 Icon(
                     imageVector = Icons.Default.AccountBalanceWallet,
                     contentDescription = "Logo Sakuku",
-                    tint = Color(0xFF0097A7),
+                    tint = Color(0xFF0D3B4E),
                     modifier = Modifier.size(80.dp)
                 )
             }
@@ -69,7 +68,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
 
             Text(
                 text = "SAKUKU",
-                color = Color.White,
+                color = Color(0xFFE8F8FC),
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 4.sp
@@ -79,7 +78,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
 
             Text(
                 text = "Cerdas Kelola Keuangan Mahasiswa",
-                color = Color.White.copy(alpha = 0.9f),
+                color = Color(0xFFA8D8E8),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -94,14 +93,14 @@ fun SplashScreen(onTimeout: () -> Unit) {
         ) {
             Text(
                 text = "Smart Financial Assistant",
-                color = Color.White.copy(alpha = 0.6f),
+                color = Color(0xFF7BBCCE),
                 fontSize = 12.sp,
                 letterSpacing = 1.sp
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "v1.0.0 by Zahwa",
-                color = Color.White.copy(alpha = 0.4f),
+                color = Color(0xFF5A9BAD),
                 fontSize = 11.sp
             )
         }
