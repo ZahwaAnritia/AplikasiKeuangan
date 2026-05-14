@@ -143,7 +143,7 @@ fun AddTransactionScreen(
                         val isSelected = selectedType == type
                         val chipBg by animateColorAsState(if (isSelected) Color.White else Color.Transparent)
                         val chipText by animateColorAsState(
-                            if (isSelected) (if (type == "OUT") Color(0xFFFF5252) else Color(0xFF4CAF50))
+                            if (isSelected) (if (type == "OUT") Color(0xFFB3261E) else Color(0xFF2E7D32))
                             else Color.White
                         )
 
@@ -177,7 +177,7 @@ fun AddTransactionScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 0.dp, end = 20.dp, bottom = 0.dp)
-                    .shadow(15.dp, RoundedCornerShape(28.dp), ambientColor = CyanPrimary, spotColor = CyanPrimary),
+                    .shadow(15.dp, RoundedCornerShape(28.dp), ambientColor = Color.Black.copy(alpha = 0.1f), spotColor = Color.Black.copy(alpha = 0.1f)),
                 shape = RoundedCornerShape(28.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
@@ -200,14 +200,15 @@ fun AddTransactionScreen(
                         value = amount,
                         onValueChange = { if (it.all { c -> c.isDigit() }) amount = it },
                         label = { Text("Nominal Transaksi") },
-                        prefix = { Text("Rp ", fontWeight = FontWeight.Bold, color = CyanPrimary) },
+                        prefix = { Text("Rp ", fontWeight = FontWeight.Bold, color = Color(0xFF0D3B4E)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = CyanPrimary,
-                            unfocusedBorderColor = Color(0xFFEEEEEE)
+                            focusedBorderColor = Color(0xFF0D3B4E),
+                            unfocusedBorderColor = Color.Gray,
+                            focusedLabelColor = Color(0xFF0D3B4E)
                         )
                     )
 
@@ -227,8 +228,9 @@ fun AddTransactionScreen(
                             modifier = Modifier.menuAnchor().fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = CyanPrimary,
-                                unfocusedBorderColor = Color(0xFFEEEEEE)
+                                focusedBorderColor = Color(0xFF0D3B4E),
+                                unfocusedBorderColor = Color.Gray,
+                                focusedLabelColor = Color(0xFF0D3B4E)
                             )
                         )
                         ExposedDropdownMenu(
@@ -264,12 +266,13 @@ fun AddTransactionScreen(
                             onValueChange = {},
                             readOnly = true,
                             label = { Text("Tanggal") },
-                            trailingIcon = { Icon(Icons.Default.DateRange, contentDescription = null, tint = CyanPrimary) },
+                            trailingIcon = { Icon(Icons.Default.DateRange, contentDescription = null, tint = Color(0xFF0D3B4E)) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = CyanPrimary,
-                                unfocusedBorderColor = Color(0xFFEEEEEE)
+                                focusedBorderColor = Color(0xFF0D3B4E),
+                                unfocusedBorderColor = Color.Gray,
+                                focusedLabelColor = Color(0xFF0D3B4E)
                             )
                         )
                         Box(modifier = Modifier.matchParentSize().clickable {
@@ -292,8 +295,9 @@ fun AddTransactionScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = CyanPrimary,
-                            unfocusedBorderColor = Color(0xFFEEEEEE)
+                            focusedBorderColor = Color(0xFF0D3B4E),
+                            unfocusedBorderColor = Color.Gray,
+                            focusedLabelColor = Color(0xFF0D3B4E)
                         )
                     )
 
@@ -326,9 +330,9 @@ fun AddTransactionScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
-                            .shadow(8.dp, RoundedCornerShape(16.dp), spotColor = CyanPrimary),
+                            .shadow(8.dp, RoundedCornerShape(16.dp), spotColor = Color(0xFF0D3B4E)),
                         enabled = !isLoading,
-                        colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                         shape = RoundedCornerShape(16.dp)
                     ) {
                         if (isLoading) {
@@ -372,7 +376,7 @@ fun AddTransactionScreen(
                             Icon(
                                 imageVector = Icons.Default.CheckCircle,
                                 contentDescription = null,
-                                tint = Color(0xFF4CAF50),
+                                tint = Color(0xFF2E7D32),
                                 modifier = Modifier.size(32.dp)
                             )
                         }
@@ -408,7 +412,7 @@ fun AddTransactionScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(46.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                             shape = RoundedCornerShape(12.dp)
                         ) {
                             Text("Sip!", fontWeight = FontWeight.Bold, color = Color.White)
@@ -442,7 +446,7 @@ fun AddTransactionScreen(
                             Icon(
                                 imageVector = Icons.Default.Warning,
                                 contentDescription = null,
-                                tint = Color(0xFFFF5252),
+                                tint = Color(0xFFB3261E),
                                 modifier = Modifier.size(32.dp)
                             )
                         }
@@ -461,7 +465,7 @@ fun AddTransactionScreen(
                         Text(
                             text = errorMessage,
                             fontSize = 14.sp,
-                            color = Color.Gray,
+                            color = Color.DarkGray,
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
                         )
 
@@ -470,7 +474,7 @@ fun AddTransactionScreen(
                         Button(
                             onClick = { showErrorDialog = false },
                             modifier = Modifier.fillMaxWidth().height(46.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5252)),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB3261E)),
                             shape = RoundedCornerShape(12.dp)
                         ) {
                             Text("Perbaiki", fontWeight = FontWeight.Bold, color = Color.White)
