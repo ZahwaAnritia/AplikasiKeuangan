@@ -89,7 +89,7 @@ fun AddTransactionScreen(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color(0xFF00ACC1).toArgb()
+            window.statusBarColor = Color(0xFF0D3B4E).toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
@@ -102,7 +102,7 @@ fun AddTransactionScreen(
                 .height(240.dp)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFF00BCD4), Color(0xFF0097A7))
+                        colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A))
                     )
                 )
         )

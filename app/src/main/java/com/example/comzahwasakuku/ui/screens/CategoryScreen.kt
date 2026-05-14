@@ -79,7 +79,7 @@ fun CategoryScreen(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color(0xFF00ACC1).toArgb()
+            window.statusBarColor = Color(0xFF0D3B4E).toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
@@ -109,8 +109,8 @@ fun CategoryScreen(
                         Icon(
                             imageVector = Icons.Default.DeleteForever,
                             contentDescription = null,
-                            tint = Color(0xFFFF5252),
-                            modifier = Modifier.size(32.dp) // Ikon lebih proporsional
+                            tint = Color(0xFFB3261E),
+                            modifier = Modifier.size(32.dp)
                         )
                     }
 
@@ -145,7 +145,7 @@ fun CategoryScreen(
                             categoryToDelete = null
                         },
                         modifier = Modifier.fillMaxWidth().height(46.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5252)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB3261E)),
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text("Ya, Hapus", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 14.sp)
@@ -188,7 +188,7 @@ fun CategoryScreen(
                         Icon(
                             imageVector = Icons.Default.CheckCircle,
                             contentDescription = null,
-                            tint = Color(0xFF4CAF50),
+                            tint = Color(0xFF2E7D32),
                             modifier = Modifier.size(36.dp)
                         )
                     }
@@ -216,7 +216,7 @@ fun CategoryScreen(
                     Button(
                         onClick = { showAddSuccessDialog = false },
                         modifier = Modifier.fillMaxWidth().height(48.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = CyanPrimary),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0D3B4E)),
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text("Sip!", fontWeight = FontWeight.Bold, color = Color.White)
@@ -234,7 +234,7 @@ fun CategoryScreen(
                 .height(240.dp)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFF00BCD4), Color(0xFF0097A7))
+                        colors = listOf(Color(0xFF0D3B4E), Color(0xFF071F2A)) // Gradasi Tema Baru
                     )
                 )
         )
@@ -274,7 +274,7 @@ fun CategoryScreen(
                         val isSelected = selectedType == type
                         val chipBg by animateColorAsState(if (isSelected) Color.White else Color.Transparent)
                         val chipText by animateColorAsState(
-                            if (isSelected) (if (type == "OUT") Color(0xFFFF5252) else Color(0xFF4CAF50))
+                            if (isSelected) (if (type == "OUT") Color(0xFFB3261E) else Color(0xFF2E7D32))
                             else Color.White
                         )
 
@@ -308,8 +308,8 @@ fun CategoryScreen(
                     .shadow(
                         elevation = 15.dp,
                         shape = RoundedCornerShape(28.dp),
-                        ambientColor = CyanPrimary.copy(alpha = 0.4f),
-                        spotColor = CyanPrimary.copy(alpha = 0.4f)
+                        ambientColor = Color.Black.copy(alpha = 0.1f),
+                        spotColor = Color.Black.copy(alpha = 0.1f)
                     ),
                 shape = RoundedCornerShape(28.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -337,13 +337,13 @@ fun CategoryScreen(
                                 modifier = Modifier
                                     .size(50.dp)
                                     .clip(CircleShape)
-                                    .background(if (isSelected) CyanPrimary else Color(0xFFF5F7F9))
+                                    .background(if (isSelected) Color(0xFF0D3B4E) else Color(0xFFF5F7F9))
                                     .clickable { selectedIconName = name }
                             ) {
                                 Icon(
                                     imageVector = iconVector,
                                     contentDescription = name,
-                                    tint = if (isSelected) Color.White else Color.Gray,
+                                    tint = if (isSelected) Color.White else Color.DarkGray,
                                     modifier = Modifier.size(26.dp)
                                 )
                             }
@@ -366,8 +366,8 @@ fun CategoryScreen(
                             shape = RoundedCornerShape(16.dp),
                             singleLine = true,
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = CyanPrimary,
-                                unfocusedBorderColor = Color(0xFFEEEEEE)
+                                focusedBorderColor = Color(0xFF0D3B4E),
+                                unfocusedBorderColor = Color.Gray
                             )
                         )
 
@@ -390,7 +390,7 @@ fun CategoryScreen(
                             shape = RoundedCornerShape(16.dp),
                             // Warna berubah jadi abu-abu kalau belum ngetik
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (isInputValid) CyanPrimary else Color.LightGray,
+                                containerColor = if (isInputValid) Color(0xFF0D3B4E) else Color.LightGray,
                                 disabledContainerColor = Color.LightGray.copy(alpha = 0.5f)
                             ),
                             contentPadding = PaddingValues(0.dp),
@@ -407,7 +407,7 @@ fun CategoryScreen(
                                 Icon(
                                     imageVector = Icons.Default.Add,
                                     contentDescription = null,
-                                    tint = if (isInputValid) Color.White else Color.Gray
+                                    tint = if (isInputValid) Color.White else Color.DarkGray
                                 )
                             }
                         }
@@ -472,7 +472,7 @@ fun CategoryScreen(
                                     Icon(
                                         imageVector = iconVector,
                                         contentDescription = null,
-                                        tint = if (cat.type == "OUT") Color(0xFFFF5252) else Color(0xFF4CAF50),
+                                        tint = if (cat.type == "OUT") Color(0xFFB3261E) else Color(0xFF2E7D32),
                                         modifier = Modifier.size(22.dp)
                                     )
                                 }
@@ -497,7 +497,7 @@ fun CategoryScreen(
                                         Icon(
                                             imageVector = Icons.Default.Delete,
                                             contentDescription = "Hapus",
-                                            tint = Color(0xFFFF5252),
+                                            tint = Color(0xFFB3261E),
                                             modifier = Modifier.size(22.dp)
                                         )
                                     }
@@ -509,7 +509,7 @@ fun CategoryScreen(
                                         Text(
                                             "DEFAULT",
                                             fontSize = 10.sp,
-                                            color = Color.LightGray,
+                                            color = Color.DarkGray,
                                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                             fontWeight = FontWeight.Black
                                         )

@@ -186,7 +186,7 @@ fun DashboardScreen(
                                 text = "Jatah: ${formatRupiah(jatahHarianPintar)} /hr",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Black,
-                                color = if (isKritis) Color(0xFFFF5252) else CyanPrimary,
+                                color = Color.White,
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                             )
                         }
