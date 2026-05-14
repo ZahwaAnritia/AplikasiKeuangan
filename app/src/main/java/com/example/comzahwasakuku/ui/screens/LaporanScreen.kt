@@ -77,9 +77,14 @@ fun LaporanScreen(
 
     // PALET WARNA GRAFIK DENGAN KONTRAS TINGGI UNTUK CVD
     val chartColors = listOf(
-        Color(0xFF0D3B4E), Color(0xFFFF5252), Color(0xFFFFEB3B),
-        Color(0xFF4CAF50), Color(0xFF2196F3), Color(0xFFFF9800),
-        Color(0xFF9C27B0), Color(0xFF795548)
+        Color(0xFF0D3B4E), // 1. Biru Sangat Gelap (Navy)
+        Color(0xFFFFEB3B), // 2. Kuning Terang (Kontras Maksimal)
+        Color(0xFFB3261E), // 3. Merah Gelap
+        Color(0xFF81C784), // 4. Hijau Muda/Terang
+        Color(0xFF1565C0), // 5. Biru Royal (Medium-Dark)
+        Color(0xFFFFB74D), // 6. Oranye Terang
+        Color(0xFF6A1B9A), // 7. Ungu Gelap
+        Color(0xFFBDBDBD)  // 8. Abu-abu Terang
     )
 
     fun formatRupiah(amount: Double): String {
@@ -260,7 +265,7 @@ fun LaporanScreen(
                                 Icon(
                                     Icons.Default.Delete,
                                     "Hapus",
-                                    tint = Color.LightGray,
+                                    tint = HighContrastRed,
                                     modifier = Modifier.size(20.dp).clickable { itemToDelete = item; showDeleteDialog = true }
                                 )
                             }
@@ -280,15 +285,19 @@ fun SimplePieChart(data: Map<String, Double>, colors: List<Color>, radius: Dp, s
             drawCircle(color = Color(0xFFE0E0E0), style = Stroke(width = stroke))
         } else {
             var startAngle = -90f
+            val gapAngle = 3f
+
             data.entries.forEachIndexed { index, entry ->
                 val sweepAngle = (entry.value / total * 360).toFloat()
-                drawArc(
-                    color = colors.getOrElse(index % colors.size) { Color.Gray },
-                    startAngle = startAngle,
-                    sweepAngle = sweepAngle,
-                    useCenter = false,
-                    style = Stroke(width = stroke, cap = StrokeCap.Round) // Stroke tebal untuk Low Vision
-                )
+                if (sweepAngle > gapAngle) {
+                    drawArc(
+                        color = colors.getOrElse(index % colors.size) { Color.Gray },
+                        startAngle = startAngle + (gapAngle / 2f),
+                        sweepAngle = sweepAngle - gapAngle,
+                        useCenter = false,
+                        style = Stroke(width = stroke, cap = StrokeCap.Round)
+                    )
+                }
                 startAngle += sweepAngle
             }
         }
