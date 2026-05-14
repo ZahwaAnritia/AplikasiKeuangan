@@ -52,7 +52,7 @@ fun AppNavigation(
             if (showFab) {
                 FloatingActionButton(
                     onClick = { navController.navigate("add_transaction") },
-                    containerColor = com.example.comzahwasakuku.ui.theme.CyanPrimary,
+                    containerColor = Color(0xFF0D3B4E),
                     contentColor = Color.White,
                     shape = CircleShape,
                     modifier = Modifier.size(65.dp).padding(4.dp)
@@ -69,7 +69,7 @@ fun AppNavigation(
             startDestination = "splash",
             modifier = Modifier
                 .padding(innerPadding)
-                .background(com.example.comzahwasakuku.ui.theme.CyanPrimary)
+                .background(Color(0xFF0D3B4E))
         ) {
 
             // 1. SPLASH

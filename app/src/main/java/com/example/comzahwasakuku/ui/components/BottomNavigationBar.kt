@@ -67,9 +67,9 @@ fun BottomNavigationBar(
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = CyanPrimary.copy(alpha = 0.15f),
-                    selectedIconColor = CyanPrimary,
-                    selectedTextColor = CyanPrimary,
+                    indicatorColor = Color(0xFF0D3B4E).copy(alpha = 0.15f),
+                    selectedIconColor = Color(0xFF0D3B4E),
+                    selectedTextColor = Color(0xFF0D3B4E),
                     unselectedIconColor = Color.Gray,
                     unselectedTextColor = Color.Gray
                 )
