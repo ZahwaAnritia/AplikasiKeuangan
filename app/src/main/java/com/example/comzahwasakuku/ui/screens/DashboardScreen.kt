@@ -63,11 +63,11 @@ fun DashboardScreen(
     val sisaHari = maxHariBulanIni - hariIni + 1
     val jatahHarianPintar = if (sisaBudget > 0) sisaBudget / sisaHari else 0.0
 
-    val isOverBudget = limitHarian > 0 && totalExpenseBulanIni > limitHarian
+    val totalBudget = limitHarian + totalIncome
+    val isOverBudget = totalBudget > 0 && totalExpenseBulanIni > totalBudget
     val isBorosHariIni = expenseHariIni > jatahHarianPintar && !isOverBudget
-
     val context = androidx.compose.ui.platform.LocalContext.current
-    val targetProgress = if (limitHarian > 0) (totalExpenseBulanIni / limitHarian).toFloat().coerceIn(0f, 1f) else 0f
+    val targetProgress = if (totalBudget.toFloat() > 0f) (totalExpenseBulanIni.toFloat() / totalBudget.toFloat()).coerceIn(0f, 1f) else 0f
     val progressAnimation by animateFloatAsState(
         targetValue = targetProgress,
         animationSpec = tween(durationMillis = 1000),
